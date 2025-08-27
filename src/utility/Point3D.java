@@ -33,4 +33,8 @@ public class Point3D {
     public double dot(Vector3D v) {
         return (x * v.x + y * v.y + z * v.z);
     }
+
+    public double dot(Normal normal) {
+        return (x * normal.x + y * normal.y + z * normal.z);
+    }
 }
