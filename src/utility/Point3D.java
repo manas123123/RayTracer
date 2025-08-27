@@ -25,4 +25,12 @@ public class Point3D {
     public Point3D sub(Point3D p) {
         return new Point3D(x - p.x, y - p.y, z - p.z);
     }
+
+    public double dot(Point3D p) {
+        return (x * p.x + y * p.y + z * p.z);
+    }
+
+    public double dot(Vector3D v) {
+        return (x * v.x + y * v.y + z * v.z);
+    }
 }

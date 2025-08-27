@@ -25,7 +25,11 @@ public class Vector3D {
         return new Vector3D(x - v.x, y - v.y, z - v.z);
     }
 
-    public double dotProduct(Vector3D v) {
+    public double dot(Vector3D v) {
+        return (x * v.x + y * v.y + z * v.z);
+    }
+
+    public double dot(Point3D v) {
         return (x * v.x + y * v.y + z * v.z);
     }
 }
