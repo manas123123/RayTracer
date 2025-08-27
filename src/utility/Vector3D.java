@@ -37,6 +37,10 @@ public class Vector3D {
         return (x * normal.x + y * normal.y + z * normal.z);
     }
 
+    public Vector3D mul(float f) {
+        return new Vector3D(x * f, y * f, z * f);
+    }
+
     public void normalize() {
         double magnitude = Math.sqrt(x * x + y * y + z * z);
         if (magnitude != 0.0) {

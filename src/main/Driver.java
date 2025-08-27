@@ -1,6 +1,8 @@
 package main;
 
+
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Random;
@@ -11,7 +13,7 @@ public class Driver {
         long start = System.nanoTime();
 
         Random random = new Random();
-        int width = 1980;
+        int width = 1920;
         int height = 1080;
 
         File image = new File("image.png");
@@ -19,7 +21,7 @@ public class Driver {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                bufferedImage.setRGB(x, y, random.nextInt());
+                bufferedImage.setRGB(x, y, 0);
             }
         }
         try {
@@ -28,6 +30,8 @@ public class Driver {
             System.out.println("Error writing image");
         }
         long end = System.nanoTime();
+
+        System.out.print("Render finished! ");
         System.out.println("Time taken: " + (end - start) / 1000000000.0F + "ms");
     }
 

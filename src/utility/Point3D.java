@@ -22,6 +22,10 @@ public class Point3D {
         return new Point3D(x + p.x, y + p.y, z + p.z);
     }
 
+    public Point3D add(Vector3D p) {
+        return new Point3D(x + p.x, y + p.y, z + p.z);
+    }
+
     public Point3D sub(Point3D p) {
         return new Point3D(x - p.x, y - p.y, z - p.z);
     }

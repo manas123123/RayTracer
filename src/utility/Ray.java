@@ -18,4 +18,9 @@ public class Ray {
         this.origin = ray.origin;
         this.direction = ray.direction;
     }
+
+    public Point3D at(float t) {
+        return origin.add(direction.mul(t));
+
+    }
 }
