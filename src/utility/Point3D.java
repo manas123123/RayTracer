@@ -42,6 +42,7 @@ public class Point3D {
         return new Point3D(x - p.x, y - p.y, z - p.z);
     }
 
+
     public double dot(Point3D p) {
         return (x * p.x + y * p.y + z * p.z);
     }
@@ -52,5 +53,13 @@ public class Point3D {
 
     public double dot(Normal normal) {
         return (x * normal.x + y * normal.y + z * normal.z);
+    }
+
+    public Vector3D toVector() {
+        return new Vector3D(x, y, z);
+    }
+
+    public String toString() {
+        return "(" + x + ", " + y + ", " + z + ")";
     }
 }
