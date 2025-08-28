@@ -59,6 +59,10 @@ public class Point3D {
         return new Vector3D(x, y, z);
     }
 
+    public Normal toNormal() {
+        return new Normal(x, y, z);
+    }
+
     public String toString() {
         return "(" + x + ", " + y + ", " + z + ")";
     }
