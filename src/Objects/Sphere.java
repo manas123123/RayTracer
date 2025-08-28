@@ -9,7 +9,7 @@ import utility.Vector3D;
 import java.awt.*;
 
 
-public class Sphere implements Hittable {
+public class Sphere extends Hittable {
     public Point3D center;
     public double radius;
 
@@ -53,10 +53,13 @@ public class Sphere implements Hittable {
     public Color getColor(Ray ray) {
         float t = getT(ray);
         Normal normal = new Normal(ray.at(t).sub(center).toNormal());
-        float r = (float) (normal.x + 1) * 0.5f;
-        float g = (float) (normal.y + 1) * 0.5f;
-        float b = (float) (normal.z + 1) * 0.5f;
-        return new Color(r, g, b);
+        Normal light = new Normal(-1, -1, -1);
+        normal.normalize();
+        light.normalize();
+
+        float r = (float) normal.dot(light.mul(-1.0f));
+        r = r < 0 ? 0 : r;
+        return new Color(r, 0.0f, 0.0f);
     }
 
 
