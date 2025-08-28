@@ -1,5 +1,6 @@
 package camera;
 
+import Objects.Sphere;
 import utility.Normal;
 import utility.Point3D;
 import utility.Ray;
@@ -41,7 +42,7 @@ public class Camera {
     }
 
     public Color getPixelAt(int x, int y, int image_width, int image_height) {
-        Point3D viewport_upper_left = new Point3D(position.add(normal).sub(viewport_y).sub(viewport_x));
+        Point3D viewport_upper_left = new Point3D(position.add(normal).sub(viewport_y.mul(0.5f)).sub(viewport_x.mul(0.5f)));
         Point3D pixel00 = viewport_upper_left.add(delta_x.mul(0.5f).add(delta_y.mul(0.5f)));
         Point3D pixelCenter = pixel00.add(delta_x.mul(x)).add(delta_y.mul(y));
         Ray ray = new Ray(position, new Vector3D(pixelCenter.x - position.x, pixelCenter.y - position.y, pixelCenter.z - position.z));
