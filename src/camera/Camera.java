@@ -36,8 +36,8 @@ public class Camera {
     }
 
     public void writeDeltas(int height, int width) {
-        delta_x = new Vector3D(viewport_x.div(height));
-        delta_y = new Vector3D(viewport_y.div(width));
+        delta_x = new Vector3D(viewport_x.div(width));
+        delta_y = new Vector3D(viewport_y.div(height));
     }
 
     public Color getPixelAt(int x, int y, int image_width, int image_height) {
