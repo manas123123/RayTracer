@@ -53,4 +53,8 @@ public class Vector3D {
             z /= magnitude;
         }
     }
+
+    public String toString() {
+        return "(" + x + ", " + y + ", " + z + ")";
+    }
 }

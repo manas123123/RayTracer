@@ -12,4 +12,8 @@ public class Sphere {
         this.center = center;
         this.radius = radius;
     }
+
+    public String toString() {
+        return "center: " + center.toString() + " radius: " + radius;
+    }
 }
