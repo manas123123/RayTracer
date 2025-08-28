@@ -1,9 +1,12 @@
 package Objects;
 
 
+import utility.Normal;
 import utility.Point3D;
 import utility.Ray;
 import utility.Vector3D;
+
+import java.awt.*;
 
 
 public class Sphere implements Hittable {
@@ -29,9 +32,34 @@ public class Sphere implements Hittable {
         return disc >= 0;
     }
 
-    public Point3D getIntersection(Ray ray) {
-        return null;
+    public float getT(Ray ray) {
+        Vector3D d = ray.direction;
+        Point3D center = this.center;
+        Vector3D oc = ray.origin.sub(center).toVector();
+        float r = (float) this.radius;
+
+        float a = (float) d.dot(d);
+        float b = (float) (2.0 * (d.dot(oc)));
+        double c = oc.dot(oc) - r * r;
+        double disc = b * b - 4 * a * c;
+
+        if (disc < 0)
+            return -1.0f;
+        else
+            return (float) ((-b - Math.sqrt(disc)) / (2.0 * a));
+
     }
+
+    public Color getColor(Ray ray) {
+        float t = getT(ray);
+        Normal normal = new Normal(ray.at(t).sub(center).toNormal());
+        float r = (float) (normal.x + 1) * 0.5f;
+        float g = (float) (normal.y + 1) * 0.5f;
+        float b = (float) (normal.z + 1) * 0.5f;
+        return new Color(r, g, b);
+    }
+
+
 
 
     public String toString() {
