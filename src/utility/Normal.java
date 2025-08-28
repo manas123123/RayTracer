@@ -30,4 +30,8 @@ public class Normal {
         }
     }
 
+    public Normal mul(float f) {
+        return new Normal(x * f, y * f, z * f);
+    }
+
 }
