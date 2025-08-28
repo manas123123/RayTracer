@@ -51,23 +51,11 @@ public class Camera {
         float g = 0.7f + 0.3f * y / image_height;
 
         Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -1.0), 0.5);
-        if (hitSphere(ray, sphere))
+        if (sphere.hit(ray))
             return new Color(1.0f, 0f, 0f);
 
         return new Color(r, g, 1.0f);
     }
 
-    public boolean hitSphere(Ray ray, Sphere sphere) {
-        Vector3D d = ray.direction;
-        Point3D center = sphere.center;
-        Vector3D oc = ray.origin.sub(center).toVector();
-        double r = sphere.radius;
 
-        double a = d.dot(d);
-        double b = 2.0 * (d.dot(oc));
-        double c = oc.dot(oc) - r * r;
-        double disc = b * b - 4 * a * c;
-
-        return disc >= 0;
-    }
 }
