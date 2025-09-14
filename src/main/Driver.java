@@ -15,7 +15,7 @@ public class Driver {
 
         //Image Parameters
         double aspectRatio = 16.0 / 9.0;
-        int height = 720;
+        int height = 1080;
         int width = (int) (((double) (height)) * (aspectRatio));
 
         //Camera Parameters
@@ -46,7 +46,7 @@ public class Driver {
         long end = System.nanoTime();
 
         System.out.print("Render finished! ");
-        System.out.println("Time taken: " + (end - start) / 1000000000.0F + "ms");
+        System.out.println("Time taken: " + (end - start) / 1000000000.0F + "s");
     }
 
 }
