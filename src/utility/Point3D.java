@@ -60,7 +60,8 @@ public class Point3D {
     }
 
     public Normal toNormal() {
-        return new Normal(x, y, z);
+        float sqrt = (float) Math.sqrt(x * x + y * y + z * z);
+        return new Normal(x / sqrt, y / sqrt, z / sqrt);
     }
 
     public String toString() {

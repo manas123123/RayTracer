@@ -32,6 +32,38 @@ public class Sphere extends Hittable {
         return disc >= 0;
     }
 
+    public boolean hit(Ray ray, double tmin, double tmax, HitRecord rec) {
+
+        Vector3D d = ray.direction;
+        Point3D center = this.center;
+        Vector3D oc = ray.origin.sub(center).toVector();
+        float r = (float) this.radius;
+
+        float a = (float) d.dot(d);
+        float b = (float) (2.0 * (d.dot(oc)));
+        double c = oc.dot(oc) - r * r;
+        double disc = b * b - 4 * a * c;
+
+        if (disc < 0)
+            return false;
+
+        float root = (float) ((-b - Math.sqrt(disc)) / (2.0 * a));
+
+
+        if (root <= tmin || root >= tmax) {
+            root = (float) ((-b + Math.sqrt(disc)) / (2.0 * a));
+            if (root <= tmin || root >= tmax)
+                return false;
+        }
+
+        rec.t = root;
+        rec.p = ray.at(root);
+        rec.n = rec.p.sub(center).toNormal();
+
+
+        return true;
+    }
+
     public float getT(Ray ray) {
         Vector3D d = ray.direction;
         Point3D center = this.center;
