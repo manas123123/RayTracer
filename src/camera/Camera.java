@@ -1,6 +1,6 @@
 package camera;
 
-import Objects.Sphere;
+import Objects.*;
 import utility.Normal;
 import utility.Point3D;
 import utility.Ray;
@@ -50,11 +50,18 @@ public class Camera {
         float r = 0.5f + 0.5f * y / image_height;
         float g = 0.7f + 0.3f * y / image_height;
 
-        Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -1.0), 0.5);
+        Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -1.0), 0.5, new Color(1.0f, 0, 0));
+        Sphere sphere2 = new Sphere(new Point3D(1.0, 0.0, -1.0), 0.5, new Color(0, 0, 1.0f));
 
 
-        if (sphere.hit(ray)) {
-            return sphere.getColor(ray);
+        HittableList<Hittable> scene = new HittableList<>();
+        scene.add(sphere);
+        scene.add(sphere2);
+
+        HitRecord rec = new HitRecord();
+        Color c = scene.hit(ray, 0, 1000, rec);
+        if (c != null) {
+            return c;
         }
 
         return new Color(r, g, 1.0f);

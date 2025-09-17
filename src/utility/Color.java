@@ -55,4 +55,7 @@ public class Color {
     }
 
 
+    public java.awt.Color toColor() {
+        return new java.awt.Color(this.r, this.g, this.b);
+    }
 }

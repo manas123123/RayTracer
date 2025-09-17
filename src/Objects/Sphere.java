@@ -1,10 +1,11 @@
 package Objects;
 
 
+import utility.Color;
 import utility.Normal;
 import utility.Point3D;
 import utility.Ray;
-import utility.Vector3D;
+import utility.*;
 
 import java.awt.*;
 
@@ -12,10 +13,19 @@ import java.awt.*;
 public class Sphere extends Hittable {
     public Point3D center;
     public double radius;
+    public java.awt.Color color;
 
-    public Sphere(Point3D center, double radius) {
+    public Sphere(Point3D center, double radius, Color color) {
         this.center = center;
         this.radius = radius;
+        this.color = color.toColor();
+    }
+
+    public Sphere(Point3D center, double radius, java.awt.Color color) {
+
+        this.center = center;
+        this.radius = radius;
+        this.color = color;
     }
 
     public boolean hit(Ray ray) {
@@ -59,6 +69,7 @@ public class Sphere extends Hittable {
         rec.t = root;
         rec.p = ray.at(root);
         rec.n = rec.p.sub(center).toNormal();
+        rec.color = color;
 
 
         return true;
