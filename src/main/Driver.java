@@ -11,40 +11,24 @@ import java.util.Random;
 
 public class Driver {
     public static void main(String[] args) {
-        long start = System.nanoTime();
+
 
         //Image Parameters
         double aspectRatio = 16.0 / 9.0;
         int height = 1080;
-        int width = (int) (((double) (height)) * (aspectRatio));
 
         //Camera Parameters
         double viewport_height = 2.0;
-        double viewport_width = viewport_height * ((double) width / height);
         double viewport_dis = 1.0;
-        Camera cam1 = new Camera(new Point3D(0, 0, 0), new Normal(0, 0, -1), viewport_height, viewport_width, 1.0, height, width);
+        Point3D eye = new Point3D(0, 0, 0);
+        Normal normal = new Normal(0, 0, -1);
 
+        //Initialize Camera
+        Camera cam1 = new Camera(eye, normal, viewport_height, viewport_dis, height, aspectRatio);
 
-
-
-
+        //Render Image
         File image = new File("image.png");
-        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                bufferedImage.setRGB(x, y, cam1.getPixelAt(x, y, height, width).getRGB());
-            }
-        }
-        try {
-            ImageIO.write(bufferedImage, "png", image);
-        } catch (Exception e) {
-            System.out.println("Error writing image");
-        }
-        long end = System.nanoTime();
-
-        System.out.print("Render finished! ");
-        System.out.println("Time taken: " + (end - start) / 1000000000.0F + "s");
+        cam1.render(image);
     }
 
 }

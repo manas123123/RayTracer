@@ -30,6 +30,16 @@ public class Normal {
         }
     }
 
+    public static Normal normalize(Normal n) {
+        double magnitude = Math.sqrt(n.x * n.x + n.y * n.y + n.z * n.z);
+        if (magnitude != 0.0) {
+            n.x /= magnitude;
+            n.y /= magnitude;
+            n.z /= magnitude;
+        }
+        return n;
+    }
+
     public Normal mul(float f) {
         return new Normal(x * f, y * f, z * f);
     }
