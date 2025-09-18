@@ -66,36 +66,53 @@ public class Camera {
         Point3D viewport_upper_left = new Point3D(position.add(normalize(normal)).sub(viewport_y.mul(0.5f)).sub(viewport_x.mul(0.5f)));
         Point3D pixel00 = viewport_upper_left.add(delta_x.mul(0.5f).add(delta_y.mul(0.5f)));
         Point3D pixelCenter = pixel00.add(delta_x.mul(x)).add(delta_y.mul(y));
-        Ray ray = new Ray(position, new Vector3D(pixelCenter.x - position.x, pixelCenter.y - position.y, pixelCenter.z - position.z));
 
-        float r = 0.5f + 0.5f * y / height;
-        float g = 0.7f + 0.3f * y / height;
+        int samples = 4;
 
 
+        float red = 0.0f;
+        float green = 0.0f;
+        float blue = 0.0f;
+
+        for (int i = 0; i < samples; i++) {
+            float randx = (float) (Math.random() - 0.5);
+            float randy = (float) (Math.random() - 0.5);
+
+            Point3D pc = pixelCenter.add(delta_x.mul(randx)).add(delta_y.mul(randy));
+            Ray ray = new Ray(position, new Vector3D(pc.x - position.x, pc.y - position.y, pc.z - position.z));
+
+            float r = 0.5f + 0.5f * y / height;
+            float g = 0.7f + 0.3f * y / height;
 
 
+            HitRecord rec = new HitRecord();
 
-        HitRecord rec = new HitRecord();
-
-        if (scene.hit(ray, 0, 1000, rec)) {
+            if (scene.hit(ray, 0, 1000, rec)) {
 
 //            float red = c.getRed() / 256f;
 //            float green = c.getGreen() / 256f;
 //            float blue = c.getBlue() / 256f;
 
 
-            Normal light = new Normal(-1, -1, -1);
-            light.normalize();
-            float a = (float) rec.n.dot(light.mul(-1.0f));
-            a = a < 0 ? 0 : a;
+                Normal light = new Normal(-1, -1, -1);
+                light.normalize();
+                float a = (float) rec.n.dot(light.mul(-1.0f));
+                a = a < 0 ? 0 : a;
 
-            float red = (float) (rec.n.x + 1) * 0.5f;
-            float green = (float) (rec.n.y + 1) * 0.5f;
-            float blue = (float) (rec.n.z + 1) * 0.5f;
-            return new Color((float) red, (float) green, (float) blue);
+                red += (float) (rec.n.x + 1) * 0.5f;
+                green += (float) (rec.n.y + 1) * 0.5f;
+                blue += (float) (rec.n.z + 1) * 0.5f;
+            } else {
+                red += r;
+                green += g;
+                blue += 1.0f;
+            }
         }
 
-        return new Color(r, g, 1.0f);
+        red /= samples;
+        green /= samples;
+        blue /= samples;
+        return new Color(red, green, blue);
     }
 
     public void render(File image, HittableList<Hittable> objs) {
