@@ -53,27 +53,35 @@ public class Camera {
         Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -1.0), 0.5, new Color(1.0f, 0, 0));
         Sphere sphere2 = new Sphere(new Point3D(1.0, 0.0, -1.0), 0.5, new Color(0, 0, 1.0f));
         Sphere sphere3 = new Sphere(new Point3D(-1.0, 0.0, -1.0), 0.5, new Color(0, 1.0f, 0));
+        Sphere sphere4 = new Sphere(new Point3D(0, -100.5, -1), 100, new Color(0, 1.0f, 0));
+
+
+
 
 
         HittableList<Hittable> scene = new HittableList<>();
         scene.add(sphere);
-        scene.add(sphere2);
-        scene.add(sphere3);
+
+        scene.add(sphere4);
 
         HitRecord rec = new HitRecord();
 
         if (scene.hit(ray, 0, 1000, rec)) {
             Color c = rec.color;
-            float red = c.getRed() / 256f;
-            float green = c.getGreen() / 256f;
-            float blue = c.getBlue() / 256f;
+//            float red = c.getRed() / 256f;
+//            float green = c.getGreen() / 256f;
+//            float blue = c.getBlue() / 256f;
 
 
             Normal light = new Normal(-1, -1, -1);
             light.normalize();
             float a = (float) rec.n.dot(light.mul(-1.0f));
             a = a < 0 ? 0 : a;
-            return new Color((float) red * a, (float) green * a, (float) blue * a);
+
+            float red = (float) (rec.n.x + 1) * 0.5f;
+            float green = (float) (rec.n.y + 1) * 0.5f;
+            float blue = (float) (rec.n.z + 1) * 0.5f;
+            return new Color((float) red, (float) green, (float) blue);
         }
 
         return new Color(r, g, 1.0f);

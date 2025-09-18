@@ -34,7 +34,7 @@ public class HittableList<T extends Hittable> {
         for (T item : list) {
             if (item.hit(ray, tmin, tmax, tempRec)) {
                 hitted = true;
-                t = tempRec.t;
+                tmax = tempRec.t;
                 rec.t = tempRec.t;
                 rec.p = tempRec.p;
                 rec.n = tempRec.n;
