@@ -37,10 +37,10 @@ public class Driver {
 
 
         //Initialize Object List
-        Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -1.0), 0.5, new Color(1.0f, 0, 0));
-        Sphere sphere2 = new Sphere(new Point3D(1.0, 0.0, -1.0), 0.5, new Color(0, 0, 1.0f));
-        Sphere sphere3 = new Sphere(new Point3D(-1.0, 0.0, -1.0), 0.5, new Color(0, 1.0f, 0));
-        Sphere sphere4 = new Sphere(new Point3D(0, -100.5, -1), 100, new Color(0, 1.0f, 0));
+        Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -1.0), 0.5);
+        Sphere sphere2 = new Sphere(new Point3D(1.0, 0.0, -1.0), 0.5);
+        Sphere sphere3 = new Sphere(new Point3D(-1.0, 0.0, -1.0), 0.5);
+        Sphere sphere4 = new Sphere(new Point3D(0, -100.5, -1), 100);
         HittableList<Hittable> objs = new HittableList<>();
 
 
@@ -52,6 +52,7 @@ public class Driver {
         scene.addObj(sphere4);
         scene.addCamera(cam1);
         scene.addCamera(cam2);
+
 
         //Render Image
         File image = new File("image.png");

@@ -13,20 +13,15 @@ import java.awt.*;
 public class Sphere extends Hittable {
     public Point3D center;
     public double radius;
-    public java.awt.Color color;
 
-    public Sphere(Point3D center, double radius, Color color) {
+
+    public Sphere(Point3D center, double radius) {
         this.center = center;
         this.radius = radius;
-        this.color = color.toColor();
+
     }
 
-    public Sphere(Point3D center, double radius, java.awt.Color color) {
 
-        this.center = center;
-        this.radius = radius;
-        this.color = color;
-    }
 
     public boolean hit(Ray ray) {
         Vector3D d = ray.direction;
@@ -72,7 +67,6 @@ public class Sphere extends Hittable {
         rec.t = x;
         rec.p = ray.at(x);
         rec.n = rec.p.sub(center).toNormal();
-        rec.color = color;
 
 
         return true;

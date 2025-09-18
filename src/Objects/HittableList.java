@@ -38,7 +38,7 @@ public class HittableList<T extends Hittable> {
                 rec.t = tempRec.t;
                 rec.p = tempRec.p;
                 rec.n = tempRec.n;
-                rec.color = tempRec.color;
+
             }
         }
         return hitted;

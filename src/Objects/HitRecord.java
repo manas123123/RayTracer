@@ -10,7 +10,6 @@ public class HitRecord {
     public Normal n;
     float t;
     boolean front_face;
-    public java.awt.Color color;
 
 
 }
