@@ -58,16 +58,19 @@ public class Sphere extends Hittable {
             return false;
 
         float root = (float) ((-b - Math.sqrt(disc)) / (2.0 * a));
+        float root2 = (float) ((-b + Math.sqrt(disc)) / (2.0 * a));
 
 
-        if (root <= tmin || root >= tmax) {
-            root = (float) ((-b + Math.sqrt(disc)) / (2.0 * a));
-            if (root <= tmin || root >= tmax)
+        float x = root < root2 ? root : root2;
+        if (x <= tmin || x >= tmax) {
+            x = root > root2 ? root : root2;
+            if (x <= tmin || x >= tmax)
                 return false;
         }
 
-        rec.t = root;
-        rec.p = ray.at(root);
+
+        rec.t = x;
+        rec.p = ray.at(x);
         rec.n = rec.p.sub(center).toNormal();
         rec.color = color;
 
