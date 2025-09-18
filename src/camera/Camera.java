@@ -63,7 +63,17 @@ public class Camera {
         HitRecord rec = new HitRecord();
 
         if (scene.hit(ray, 0, 1000, rec)) {
-            return rec.color;
+            Color c = rec.color;
+            float red = c.getRed() / 256f;
+            float green = c.getGreen() / 256f;
+            float blue = c.getBlue() / 256f;
+
+
+            Normal light = new Normal(-1, -1, -1);
+            light.normalize();
+            float a = (float) rec.n.dot(light.mul(-1.0f));
+            a = a < 0 ? 0 : a;
+            return new Color((float) red * a, (float) green * a, (float) blue * a);
         }
 
         return new Color(r, g, 1.0f);
