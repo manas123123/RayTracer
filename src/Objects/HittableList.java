@@ -26,7 +26,7 @@ public class HittableList<T extends Hittable> {
         list.clear();
     }
 
-    public Color hit(Ray ray, float tmin, float tmax, HitRecord rec) {
+    public boolean hit(Ray ray, float tmin, float tmax, HitRecord rec) {
         HitRecord tempRec = new HitRecord();
         boolean hitted = false;
         float t = 0;
@@ -41,6 +41,6 @@ public class HittableList<T extends Hittable> {
                 rec.color = tempRec.color;
             }
         }
-        return rec.color;
+        return hitted;
     }
 }

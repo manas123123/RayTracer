@@ -52,16 +52,18 @@ public class Camera {
 
         Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -1.0), 0.5, new Color(1.0f, 0, 0));
         Sphere sphere2 = new Sphere(new Point3D(1.0, 0.0, -1.0), 0.5, new Color(0, 0, 1.0f));
+        Sphere sphere3 = new Sphere(new Point3D(-1.0, 0.0, -1.0), 0.5, new Color(0, 1.0f, 0));
 
 
         HittableList<Hittable> scene = new HittableList<>();
         scene.add(sphere);
         scene.add(sphere2);
+        scene.add(sphere3);
 
         HitRecord rec = new HitRecord();
-        Color c = scene.hit(ray, 0, 1000, rec);
-        if (c != null) {
-            return c;
+
+        if (scene.hit(ray, 0, 1000, rec)) {
+            return rec.color;
         }
 
         return new Color(r, g, 1.0f);
