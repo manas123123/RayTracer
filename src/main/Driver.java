@@ -22,10 +22,8 @@ public class Driver {
         double viewport_height = 2.0;
         double viewport_width = viewport_height * ((double) width / height);
         double viewport_dis = 1.0;
-        Camera cam1 = new Camera(new Point3D(0, 0, 0), new Normal(0, 0, -1), viewport_height, viewport_width, 1.0);
-        cam1.viewport_x = new Vector3D(viewport_width, 0, 0);
-        cam1.viewport_y = new Vector3D(0, -viewport_height, 0);
-        cam1.writeDeltas(height, width);
+        Camera cam1 = new Camera(new Point3D(0, 0, 0), new Normal(0, 0, -1), viewport_height, viewport_width, 1.0, height, width);
+
 
 
 

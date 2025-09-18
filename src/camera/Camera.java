@@ -27,12 +27,16 @@ public class Camera {
         viewport_dis = 0.0;
     }
 
-    public Camera(Point3D position, Normal normal, double viewport_height, double viewport_width, double viewport_dis) {
+    public Camera(Point3D position, Normal normal, double viewport_height, double viewport_width, double viewport_dis, int height, int width) {
         this.position = new Point3D(position);
         this.normal = new Normal(normal);
         this.viewport_height = viewport_height;
         this.viewport_width = viewport_width;
         this.viewport_dis = viewport_dis;
+
+        viewport_x = new Vector3D(viewport_width, 0, 0);
+        viewport_y = new Vector3D(0, -viewport_height, 0);
+        writeDeltas(height, width);
 
     }
 
