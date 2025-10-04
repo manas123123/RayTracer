@@ -38,8 +38,8 @@ public class Driver {
 
         //Initialize Object List
         Sphere sphere = new Sphere(new Point3D(0.0, 0.0, -1.0), 0.5);
-        Sphere sphere2 = new Sphere(new Point3D(1.0, 0.0, -1.0), 0.5);
-        Sphere sphere3 = new Sphere(new Point3D(-1.0, 0.0, -1.0), 0.5);
+        Sphere sphere2 = new Sphere(new Point3D(1.0, 0.0, -1.0), 0.25);
+        Sphere sphere3 = new Sphere(new Point3D(-1.0, 0.0, -1.0), 0.25);
         Sphere sphere4 = new Sphere(new Point3D(0, -100.5, -1), 100);
         HittableList<Hittable> objs = new HittableList<>();
 

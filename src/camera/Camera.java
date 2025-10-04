@@ -67,7 +67,7 @@ public class Camera {
         Point3D pixel00 = viewport_upper_left.add(delta_x.mul(0.5f).add(delta_y.mul(0.5f)));
         Point3D pixelCenter = pixel00.add(delta_x.mul(x)).add(delta_y.mul(y));
 
-        int samples = 64;
+        int samples = 16;
         int maxDepth = 12;
 
 
@@ -96,7 +96,7 @@ public class Camera {
             } else {
                 red += r;
                 green += g;
-                blue += 0.99f;
+                blue += 1.0f;
             }
 
 //            if (scene.hit(ray, 0, 1000000000, rec)) {
@@ -119,7 +119,7 @@ public class Camera {
         red /= samples;
         green /= samples;
         blue /= samples;
-        return new Color(red, green, blue);
+        return new Color((float) Math.sqrt(red), (float) Math.sqrt(green), (float) Math.sqrt(blue));
     }
 
     public boolean rayColor(Ray ray, float[] colorRGB, int maxDepth, HittableList<Hittable> scene) {
@@ -136,12 +136,14 @@ public class Camera {
 
             rayColor(ray2, colorRGB, maxDepth - 1, scene);
             // get reflection
-            float absorbance = 0.5f;
+            float absorbance = 0.7f;
             colorRGB[0] *= 1.0 - absorbance;
             colorRGB[1] *= 1.0 - absorbance;
             colorRGB[2] *= 1.0 - absorbance;
             return true;
         } else {
+
+
             colorRGB[0] = 0.5f;
             colorRGB[1] = 0.7f;
             colorRGB[2] = 1.0f;
