@@ -143,10 +143,14 @@ public class Camera {
             return true;
         } else {
 
-
-            colorRGB[0] = 0.5f;
-            colorRGB[1] = 0.7f;
-            colorRGB[2] = 1.0f;
+            Normal light = new Normal(-1, -1, -1);
+            light.normalize();
+            ray.direction.normalize();
+            float a = (float) ray.direction.dot(light.mul(-1.0f));
+            a = a < 0 ? 0 : a;
+            colorRGB[0] = 0.5f * a;
+            colorRGB[1] = 0.7f * a;
+            colorRGB[2] = 1.0f * a;
             return false;
         }
     }

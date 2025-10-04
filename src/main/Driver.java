@@ -48,8 +48,6 @@ public class Driver {
         Scene scene = new Scene();
 
         scene.addObj(sphere);
-        scene.addObj(sphere2);
-        scene.addObj(sphere3);
         scene.addObj(sphere4);
 
         scene.addCamera(cam1);
