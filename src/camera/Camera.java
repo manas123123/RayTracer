@@ -136,9 +136,10 @@ public class Camera {
 
             rayColor(ray2, colorRGB, maxDepth - 1, scene);
             // get reflection
-            colorRGB[0] *= 0.5f;
-            colorRGB[1] *= 0.5f;
-            colorRGB[2] *= 0.5f;
+            float absorbance = 0.5f;
+            colorRGB[0] *= 1.0 - absorbance;
+            colorRGB[1] *= 1.0 - absorbance;
+            colorRGB[2] *= 1.0 - absorbance;
             return true;
         } else {
             colorRGB[0] = 0.5f;

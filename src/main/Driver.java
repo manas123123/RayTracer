@@ -46,11 +46,14 @@ public class Driver {
 
         //Initialize Scene
         Scene scene = new Scene();
-        scene.addObj(sphere);
 
+        scene.addObj(sphere);
+        scene.addObj(sphere2);
+        scene.addObj(sphere3);
         scene.addObj(sphere4);
+
         scene.addCamera(cam1);
-        //scene.addCamera(cam2);
+        scene.addCamera(cam2);
 
 
         //Render Image
