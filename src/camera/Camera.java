@@ -87,11 +87,7 @@ public class Camera {
 
             HitRecord rec = new HitRecord();
 
-            if (scene.hit(ray, 0, 1000, rec)) {
-
-//            float red = c.getRed() / 256f;
-//            float green = c.getGreen() / 256f;
-//            float blue = c.getBlue() / 256f;
+            if (scene.hit(ray, 0, 1000000000, rec)) {
 
 
                 Normal light = new Normal(-1, -1, -1);
