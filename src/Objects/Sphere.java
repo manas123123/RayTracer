@@ -67,7 +67,7 @@ public class Sphere extends Hittable {
         rec.t = x;
         rec.p = ray.at(x);
         rec.n = rec.p.sub(center).toNormal();
-
+        // Remove the redundant rec.n.normalize() since toNormal() already normalizes
 
         return true;
     }
@@ -89,21 +89,6 @@ public class Sphere extends Hittable {
             return (float) ((-b - Math.sqrt(disc)) / (2.0 * a));
 
     }
-
-    public Color getColor(Ray ray) {
-        float t = getT(ray);
-        Normal normal = new Normal(ray.at(t).sub(center).toNormal());
-        Normal light = new Normal(-1, -1, -1);
-        normal.normalize();
-        light.normalize();
-
-        float r = (float) normal.dot(light.mul(-1.0f));
-        r = r < 0 ? 0 : r;
-        return new Color(r, 0.0f, 0.0f);
-    }
-
-
-
 
     public String toString() {
         return "center: " + center.toString() + " radius: " + radius;

@@ -67,7 +67,8 @@ public class Camera {
         Point3D pixel00 = viewport_upper_left.add(delta_x.mul(0.5f).add(delta_y.mul(0.5f)));
         Point3D pixelCenter = pixel00.add(delta_x.mul(x)).add(delta_y.mul(y));
 
-        int samples = 4;
+        int samples = 64;
+        int maxDepth = 12;
 
 
         float red = 0.0f;
@@ -86,29 +87,86 @@ public class Camera {
 
 
             HitRecord rec = new HitRecord();
+            float[] colorRGB = new float[3];
 
-            if (scene.hit(ray, 0, 1000000000, rec)) {
-
-
-                Normal light = new Normal(-1, -1, -1);
-                light.normalize();
-                float a = (float) rec.n.dot(light.mul(-1.0f));
-                a = a < 0 ? 0 : a;
-
-                red += (float) (rec.n.x + 1) * 0.5f;
-                green += (float) (rec.n.y + 1) * 0.5f;
-                blue += (float) (rec.n.z + 1) * 0.5f;
+            if (rayColor(ray, colorRGB, maxDepth, scene)) {
+                red += colorRGB[0];
+                green += colorRGB[1];
+                blue += colorRGB[2];
             } else {
                 red += r;
                 green += g;
-                blue += 1.0f;
+                blue += 0.99f;
             }
+
+//            if (scene.hit(ray, 0, 1000000000, rec)) {
+//
+//
+//                Normal light = new Normal(-1, -1, -1);
+//                light.normalize();
+//                float a = (float) rec.n.dot(light.mul(-1.0f));
+//                a = a < 0 ? 0 : a;
+//
+//                red += (float) (rec.n.x + 1) * 0.5f;
+//                green += (float) (rec.n.y + 1) * 0.5f;
+//                blue += (float) (rec.n.z + 1) * 0.5f;
+//            } else { // if it does not hit anything
+//
+//                blue += 1.0f;
+//            }
         }
 
         red /= samples;
         green /= samples;
         blue /= samples;
         return new Color(red, green, blue);
+    }
+
+    public boolean rayColor(Ray ray, float[] colorRGB, int maxDepth, HittableList<Hittable> scene) {
+
+        HitRecord rec = new HitRecord();
+        if (maxDepth == 0) {
+            colorRGB[0] = 0.0f;
+            colorRGB[1] = 0.0f;
+            colorRGB[2] = 0.0f;
+            return true;
+
+        } else if (scene.hit(ray, 0.00001f, 1000000000, rec)) {
+            Ray ray2 = getReflectedRay(rec);
+
+            rayColor(ray2, colorRGB, maxDepth - 1, scene);
+            // get reflection
+            colorRGB[0] *= 0.5f;
+            colorRGB[1] *= 0.5f;
+            colorRGB[2] *= 0.5f;
+            return true;
+        } else {
+            colorRGB[0] = 0.5f;
+            colorRGB[1] = 0.7f;
+            colorRGB[2] = 1.0f;
+            return false;
+        }
+    }
+
+    public Ray getReflectedRay(HitRecord rec) {
+        // Generate random point in unit sphere using rejection sampling
+        Vector3D randomVec;
+        do {
+            randomVec = new Vector3D(
+                    Math.random() * 2 - 1,  // Random in [-1, 1]
+                    Math.random() * 2 - 1,  // Random in [-1, 1]
+                    Math.random() * 2 - 1   // Random in [-1, 1]
+            );
+        } while (randomVec.dot(randomVec) > 1.0);  // Reject if outside unit sphere
+
+        // Lambertian diffuse: normal + random vector
+        Vector3D normalVec = new Vector3D(rec.n.x, rec.n.y, rec.n.z);
+        Vector3D scatterDirection = normalVec.add(randomVec);
+
+        // Normalize the scatter direction
+        scatterDirection.normalize();
+
+        return new Ray(rec.p, scatterDirection);
     }
 
     public void render(File image, HittableList<Hittable> objs) {
